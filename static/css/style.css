@@ -1,0 +1,313 @@
+.logo {
+	height: 130px;
+	width: 130px;
+	margin-top: -40px;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Rubik', sans-serif;
+}
+
+nav {
+	height: 60px;
+}
+.navbar #email {
+	color: #444;
+	margin-top: 12px;
+}
+
+.navbar #email {
+	background-color: #f8f8f8;
+}
+
+.navbar .navbar-nav #email:visited {
+	background-color: #f8f8f8;
+}
+
+.sidenav {
+	height: 100%;
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom, #d4d4d4, #e6e6e6);
+	overflow-x: hidden;
+	padding-top: 20px;
+	margin-top: 50px;
+	box-shadow: 5px 0 20px #aaa;
+}
+
+.sidenav a {
+	padding: 15px 8px 15px 16px;
+	text-decoration: none;
+	font-size: 18px;
+	color: #555;
+	display: block;
+	font-family: 'Rubik', sans-serif;
+}
+
+.sidenav a:hover {
+	color: #111;
+	text-decoration: none;
+}
+
+.sidenav .active {
+	color: #fff;
+	background-image: linear-gradient(to right, #238a91, #5780b2);
+	font-size: 18px;
+}
+
+.sidenav .active:hover {
+	color: #fff;
+}
+
+.main {
+	margin-left: 160px; /* Same as the width of the sidenav */
+	font-size: 28px; /* Increased text to enable scrolling */
+	padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+.navbar {
+	height: 80px;
+}
+
+.navbar-header button {
+	margin-top: 8px;
+}
+
+.active {
+	color: #888;
+}
+
+@media only screen and (min-width: 750px) {
+	.sidenav2 {
+		display: none;
+	}
+
+	.create-project {
+		margin-top: 80px;
+	}
+}
+
+@media only screen and (max-width: 750px) {
+	.sidenav {
+		display: none;
+	}
+
+	.sidenav2 {
+		z-index: 1;
+		background-image: linear-gradient(to bottom, #d4d4d4, #e6e6e6);
+		box-shadow: 5px 0 20px #aaa;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-top: 50px;
+	}
+
+	.sidenav2 a {
+		padding: 15px 10px 15px 10px;
+		text-decoration: none !important;
+		font-size: 15px;
+		color: #555;
+		font-family: 'Rubik', sans-serif;
+	}
+
+	.sidenav2 a:hover {
+		color: #111;
+	}
+
+	.logo {
+		height: 100px;
+		width: 100px;
+		margin-top: -40px;
+	}
+
+	.navbar {
+		height: 60px;
+	}
+}
+
+.jumbotron {
+	box-shadow: 0 0 20px #bbb;
+}
+
+.jumbotron h2,
+.jumbotron form label,
+.jumbotron form input {
+	font-family: 'Rubik', sans-serif;
+}
+
+.jumbotron form button {
+	background-image: linear-gradient(to right, #238a91, #5780b2);
+	font-family: 'Rubik', sans-serif;
+	font-size: 16px;
+	border-radius: 0px;
+	height: 40px;
+}
+
+.jumbotron form input {
+	border-radius: 0px;
+	padding: 20px;
+}
+
+.jumbotron select {
+	border-radius: 0px;
+	width: 200px !important;
+}
+
+.jumbotron form input:focus {
+	border-color: #5780b2;
+	border: 2px solid #5780b2;
+}
+
+.navbar .navbar-nav .logout {
+	color: #555;
+}
+
+.navbar .navbar-nav .logout:hover {
+	background-color: #e6e6ee;
+}
+
+.navbar .navbar-nav ul li {
+	background-color: #e6e6e6;
+}
+
+/* CODE FOR CUSTOM FILT INPUT*/
+
+.file-upload {
+	display: block;
+	text-align: center;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+.file-upload .file-select {
+	display: block;
+	border: 2px solid #dce4ec;
+	color: #34495e;
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	background: #ffffff;
+	overflow: hidden;
+	position: relative;
+}
+.file-upload .file-select .file-select-button {
+	background: #dce4ec;
+	padding: 0 10px;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+}
+.file-upload .file-select .file-select-name {
+	line-height: 40px;
+	display: inline-block;
+	padding: 0 10px;
+}
+.file-upload .file-select:hover {
+	border-color: #5780b2;
+	transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+	background: #5780b2;
+	color: #ffffff;
+	transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+}
+.file-upload.active .file-select {
+	border-color: #238a91;
+	transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+	background: #238a91;
+	color: #ffffff;
+	transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+}
+.file-upload .file-select input[type=file] {
+	z-index: 100;
+	cursor: pointer;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+	opacity: 0.65;
+}
+.file-upload .file-select.file-select-disabled:hover {
+	cursor: default;
+	display: block;
+	border: 2px solid #dce4ec;
+	color: #34495e;
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 5px;
+	text-align: left;
+	background: #ffffff;
+	overflow: hidden;
+	position: relative;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+	background: #dce4ec;
+	color: #666666;
+	padding: 0 10px;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+	line-height: 40px;
+	display: inline-block;
+	padding: 0 10px;
+}
+
+.list-group {
+	margin-top: 50px;
+}
+
+.list-group-item {
+	font-family: 'Rubik', sans-serif;
+	background-color: rgba(240, 240, 240, 0.6) !important;
+}
+
+.list-group-item:hover {
+	background-image: linear-gradient(to right, #238a91, #5780b2);
+	color: white;
+}
+
+.footer {
+	float: right;
+	color: #999;
+}
+
+.dropdown a {
+	font-family: 'Rubik', sans-serif;
+}
+
+/*Index2*/

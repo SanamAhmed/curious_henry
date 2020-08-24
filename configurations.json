@@ -1,0 +1,14 @@
+{
+  "DATABASEIP":"localhost", "DB_USER": "root", "DB_PASSWORD": "m@vra123", "DATABASE" :"attomus",
+  "SECRET_KEY": "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT",
+  "UPLOAD_PATH": "D:\\Crymzee\\Steve\\Files",
+  "UPLOAD_PATH_PDF": "C:\\Users\\sanam\\PycharmProjects\\CuriousHenryBeta1.0\\static\\web\\",
+  "OCR_API_KEY": "ceb870644788957",
+  "GOOGLE_API_KEY": "C:\\Users\\sanam\\Desktop\\AttomusFiles\\CuriousHenry-beta-5153a5857731.json",
+  "NLP_API_KEY": "http://localhost:9000//",
+  "UPLOAD_URL" : "http://localhost:63342/CuriousHenryBeta1.0/static/web/",
+  "THREAD_SLEEP_TIME" : 100,
+  "MODEL": "D:\\Crymzee\\Steve\\Model\\attomusmodel"
+
+
+}

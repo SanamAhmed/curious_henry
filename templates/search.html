@@ -1,0 +1,239 @@
+<html>
+    <head>
+        <title>Search for Entities</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+      <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+
+    </head>
+    <style type="text/css">
+      #mynetwork {
+          border: 1px solid lightgray;
+          width:100%;
+          height:600px;
+      }
+    </style>
+    <body>
+        <input type="hidden" id="nw" value="{{ nw }}">
+        <input type="hidden" id="ne" value="{{ ne }}">
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                  <button id="menu-btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="createProject.html">
+                  <img class="logo" alt="Brand" src="{{
+                          url_for('static', filename='css/logo2.png') }}">
+                </a>
+              </div>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a id="email" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ email }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-image: linear-gradient(to right, #238a91, #5780b2);">
+            <li><a class="logout" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div align="center" class="sidenav2">
+          <br>
+          <a href="/createProjectForm"><img class="fol-icon" src="{{ url_for('static', filename='css/rocket.png') }}"> Create Project</a>
+          <a href="/addFileForm"><img src="{{ url_for('static', filename='css/folder.png') }}"> Files</a>
+          <a href="/addUserForm"  ><img src="{{ url_for('static', filename='css/user.png') }}"> Users</a>
+          <a href="/searchEntity" class="active"><img width="25px" height="28px" src="{{ url_for('static', filename='css/network2.png') }}"> Search Entities</a> </div>
+        
+
+  <div class="container-fluid">
+      <div class="sidenav">
+          <br>
+          <a href="/createProjectForm"><img class="fol-icon" src="{{ url_for('static', filename='css/rocket.png') }}"> Create Project</a>
+          <a href="/addFileForm"><img src="{{ url_for('static', filename='css/folder.png') }}"> Files</a>
+          <a href="/addUserForm"  ><img src="{{ url_for('static', filename='css/user.png') }}"> Users</a>
+          <a href="/searchEntity" class="active"><img width="25px" height="28px" src="{{ url_for('static', filename='css/network2.png') }}"> Search Entities</a>
+      </div>
+      <br>
+    <div class="jumbotron create-project col-md-9 col-md-offset-2 col-sm-8 col-sm-offset-3">
+        <h2><b>Search for Entities</b></h2>
+        <form class="form-inline" action="/searchRelation_" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" name="query" placeholder="Search Keyword" >
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="fname" placeholder="File Name" >
+          </div>
+
+          <div class="form-group">
+              <select style="height:40px;" class="form-control" name="pname">
+                  {% for x in projectList %}
+                    <option value="{{ x }}" SELECTED>{{ x }}</option>
+                {% endfor %}
+
+              </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg">Search</button>
+        </form>
+      </div>
+        <div>
+            {% if message %}
+            <p>{{ message }}</p>
+            {% endif %}
+        </div>
+
+      <div style="background: #fff;" class="jumbotron show-files col-md-9 col-md-offset-2 col-sm-8 col-sm-offset-3">
+          <h2><b>Entites and their Relations</b></h2>
+          <br>
+          <!--<img width="100%" src="network.png">-->
+          <!--Network-->
+          <div id="mynetwork"></div>
+          <br>
+
+      </div>
+
+
+      <p class="footer">CuriousLee (c) Attomus Ltd 2019</p>
+    
+   </div>
+    <script >
+        //alert("Hello")
+        var nodesData = document.getElementById("nw").value
+        //alert(nodesData)
+
+       //
+        var edgesData = document.getElementById("ne").value
+        //alert(edgesData)
+        var nodes=null,edges=null
+        var container = document.getElementById('mynetwork');
+       // alert(nodes)
+      //  alert(edges)
+        //var nodes = [{'id': '1', 'label': 'Satnam', 'url': ''}, {'id': '2', 'label': 'currentVeerenni 36 loan schedule', 'url': ''}, {'id': '3', 'label': 'mortgages', 'url': ''}, {'id': '4', 'label': 'favour of Satnam Investments Ltd.', 'url': ''}, {'id': '5', 'label': 'Satnam', 'url': ''}, {'id': '6', 'label': 'agreed', 'url': ''}, {'id': '7', 'label': 'Satnam', 'url': ''}, {'id': '8', 'label': 'agreed upon loan repayment schedule for Veerenni 36 land plot', 'url': ''}, {'id': '9', 'label': 'Satnam', 'url': ''}, {'id': '10', 'label': 'agreed upon loan repayment schedule', 'url': ''}, {'id': '11', 'label': 'Satnam', 'url': ''}, {'id': '12', 'label': 'loan repayment schedule', 'url': ''}, {'id': '13', 'label': 'Satnam', 'url': ''}, {'id': '14', 'label': 'Veerenni 36 land plot', 'url': ''}, {'id': '15', 'label': 'Satnam Estonia O', 'url': ''}, {'id': '16', 'label': 'several last weeks', 'url': ''}, {'id': '17', 'label': 'Satnam Estonia O', 'url': ''}, {'id': '18', 'label': 'solutions', 'url': ''}, {'id': '19', 'label': 'Satnam Estonia O', 'url': ''}, {'id': '20', 'label': 'several weeks', 'url': ''}, {'id': '21', 'label': 'Satnam Estonia', 'url': ''}, {'id': '22', 'label': 'development of important development site', 'url': ''}, {'id': '23', 'label': 'Satnam Estonia', 'url': ''}, {'id': '24', 'label': 'loan', 'url': ''}, {'id': '25', 'label': 'Satnam Estonia', 'url': ''}, {'id': '26', 'label': 'external sources', 'url': ''}, {'id': '27', 'label': 'Satnam Estonia', 'url': ''}, {'id': '28', 'label': 'funded', 'url': ''}]
+
+        //var edges= [{'from': '1', 'to': '2', 'label': 'honors'}, {'from': '3', 'to': '4', 'label': 'is in'}, {'from': '5', 'to': '6', 'label': 'fulfills'}, {'from': '7', 'to': '8', 'label': 'fulfills'}, {'from': '9', 'to': '10', 'label': 'fulfills'}, {'from': '11', 'to': '12', 'label': 'agreed upon'}, {'from': '13', 'to': '14', 'label': 'agreed for'}, {'from': '15', 'to': '16', 'label': 'has tried for'}, {'from': '17', 'to': '18', 'label': 'find'}, {'from': '19', 'to': '20', 'label': 'has tried for'}, {'from': '21', 'to': '22', 'label': 'service loan in'}, {'from': '23', 'to': '24', 'label': 'service'}, {'from': '25', 'to': '26', 'label': 'is funded from'}, {'from': '27', 'to': '28', 'label': 'is'}]
+
+            nodes=null,edges=null
+            nodes = new vis.DataSet(JSON.parse(nodesData));
+            edges = new vis.DataSet(JSON.parse(edgesData));
+            //alert(nodes)
+            //alert(edges)
+            console.log(nodes)
+            console.log(edges)
+
+
+            // provide the data in the vis format
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {
+
+                interaction: {
+                    tooltipDelay: 3600000,
+                    selectable: true,
+                    hover: true // Set a really big delay - one hour
+                },
+                physics: false,
+                edges: {
+                    smooth: {
+                        enabled: true,
+                        roundness: 0
+                    },
+                    width: 1,
+                    font: {
+                        color: '#111',
+                        size: 16,
+                        face: 'Rubik'
+                    },
+                    arrows: {
+                        to: {
+                            enabled: true,
+                            scaleFactor: 1
+                        },
+                        middle: {
+                            enabled: false,
+                            scaleFactor: 1
+                        },
+                        from: {
+                            enabled: false,
+                            scaleFactor: 1
+                        }
+                    }
+                },
+
+                nodes: {
+                    shape: 'box',
+                    borderWidth: 3,
+                    color: {
+                        background: '#5780b2',
+                        border: '#238a91'
+                    },
+                    font: {
+                        color: '#ffffff',
+                        size: 22,
+                        face: 'Rubik'
+                    },
+                    shadow: {
+                        enabled: true,
+                        color: 'rgba(0,0,0,0.3)',
+                        size: 5,
+                        x: 3,
+                        y: 5
+                    }
+                }
+            };
+
+
+            var network = null
+            var n = 10
+            try{
+                network = new vis.Network(container, data, options);
+            }catch(e){
+
+                //alert("Exception"+e)
+            }
+            //alert("Sanam"+network)
+
+            // Intercept the click event
+            network.on('hoverNode', function(params) {
+                // Check if you clicked on a node; if so, display the title (if any) in a popup
+                network.interactionHandler._checkShowPopup(params.pointer.DOM);
+            });
+            network.on('hoverEdge', function(params) {
+                // Check if you clicked on a node; if so, display the title (if any) in a popup
+                network.interactionHandler._checkShowPopup(params.pointer.DOM);
+            });
+
+            network.on('selectNode', function(params) {
+                if (params.nodes.length === 1) {
+                    var node = nodes.get(params.nodes[0]);
+                    window.open(node.url, '_blank');
+                }
+            });
+
+
+    </script>
+    </body>
+</html>

@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <title>Add Users</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+      <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  	<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                  <button id="menu-btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="createProject.html">
+                  <img class="logo" alt="Brand" src="{{ url_for('static', filename='css/logo2.png') }}">
+                </a>
+              </div>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a id="email" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ email }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-image: linear-gradient(to right, #238a91, #5780b2);">
+            <li><a class="logout" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div align="center" class="sidenav2">
+          <br>
+          <a href="/createProjectForm"><img class="fol-icon" src="{{ url_for('static', filename='css/rocket.png') }}"> Create Project</a>
+          <a href="/addFileForm"><img src="{{ url_for('static', filename='css/folder.png') }}"> Files</a>
+          <a href="/addUserForm"  class="active"><img src="{{ url_for('static', filename='css/user.png') }}"> Users</a>
+          <a href="/searchEntity"><img width="25px" height="28px" src="{{ url_for('static', filename='css/network2.png') }}"> Search Entities</a>
+        </div>
+        
+
+  <div class="container-fluid">
+      <div class="sidenav">
+          <br>
+          <a href="/createProjectForm"><img class="fol-icon" src="{{ url_for('static', filename='css/rocket.png') }}"> Create Project</a>
+          <a href="/addFileForm"><img src="{{ url_for('static', filename='css/folder.png') }}"> Files</a>
+          <a href="/addUserForm"  class="active"><img src="{{ url_for('static', filename='css/user.png') }}"> Users</a>
+          <a href="/searchEntity"><img width="25px" height="28px" src="{{ url_for('static', filename='css/network2.png') }}"> Search Entities</a>
+      </div>
+      <br>
+     
+    <div class="jumbotron create-project col-md-9 col-md-offset-2 col-sm-8 col-sm-offset-3">
+        <h2><b>Add Users to Project</b></h2>
+        <form class="form-inline" action="/addUser" method="post">
+          <div class="form-group">
+            <select class="form-control" name="pname" id="pname">
+                {% for x in projectList %}
+                    <option value="{{ x }}" >{{ x }}</option>
+                {% endfor %}
+
+              </select>
+          </div>
+          <div class="form-group">
+                <input type="email" class="form-control" name="uname" placeholder="User's Email" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg">Add</button>
+        </form>
+        {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+
+      </div>
+
+      <div style="background: #fff;" class="jumbotron show-files col-md-9 col-md-offset-2 col-sm-8 col-sm-offset-3">
+          <div class="form-inline pull-right">
+              <label for="sel1">Select Project:</label>
+              <select class="form-control" name="pname" id="ppname">
+                {% for x in projectList %}
+                    <option value="{{ x }}" >{{ x }}</option>
+                {% endfor %}
+
+              </select>
+            </div>
+            <br>
+            <h2><b>Users</b></h2>
+            <table id="example" class="display" width="100%"></table>
+      </div>
+  
+
+    <p class="footer">CuriousLee (c) Attomus Ltd 2019</p>
+
+    </div>
+
+    
+   </div>
+    <script>
+        var myData
+        $(document.body).on('click',"#ppname",function (e) {
+           //doStuff
+            console.log("hello")
+           var optVal= $("#ppname option:selected").val();
+            var table;
+           //alert("optVal"+optVal)
+            var data = 'pname='+ optVal;
+                         $.ajax({type:"GET",
+                                url:"/showUsers",
+                                data:data,
+                             success: function(result){
+                                        myData = result
+                                 //alert(myData)
+                                 if(myData !=null || myData !=""){
+
+                                    table = $('#example').DataTable( {
+                                        data: myData ,destroy: true,
+                                        columns: [
+                                            { title: "UserName" }
+
+                                        ]
+                                    } );
+                                }
+
+                          }});
+        });
+
+
+
+
+    </script>
+
+
+    </body>
+</html>
